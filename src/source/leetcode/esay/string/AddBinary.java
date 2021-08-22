@@ -1,4 +1,4 @@
-package source.leetcode.esay.normal;
+package source.leetcode.esay.string;
 
 import java.lang.ref.SoftReference;
 

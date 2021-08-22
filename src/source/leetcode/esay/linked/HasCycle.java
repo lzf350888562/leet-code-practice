@@ -1,4 +1,4 @@
-package source.leetcode.esay.normal;
+package source.leetcode.esay.linked;
 
 /**
  * 给定一个链表，判断链表中是否有环。

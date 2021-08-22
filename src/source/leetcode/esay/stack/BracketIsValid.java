@@ -1,4 +1,4 @@
-package source.leetcode.esay.normal;
+package source.leetcode.esay.stack;
 
 import java.util.ArrayList;
 import java.util.Stack;

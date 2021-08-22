@@ -1,9 +1,4 @@
-package source.leetcode.esay.normal;
-
-import java.io.Serializable;
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.List;
+package source.leetcode.esay.array;
 
 /**
  * 输入：digits = [1,2,3]

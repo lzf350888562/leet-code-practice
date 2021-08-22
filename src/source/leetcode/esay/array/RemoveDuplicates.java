@@ -1,4 +1,4 @@
-package source.leetcode.esay.normal;
+package source.leetcode.esay.array;
 
 /**
  * 删除有序数组的重复项 不新建数组

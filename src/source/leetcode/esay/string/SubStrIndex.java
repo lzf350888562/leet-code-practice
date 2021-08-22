@@ -1,4 +1,4 @@
-package source.leetcode.esay.normal;
+package source.leetcode.esay.string;
 
 /**
  * 第一次出现的子串的位置

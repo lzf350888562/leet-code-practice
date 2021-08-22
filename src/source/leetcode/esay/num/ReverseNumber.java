@@ -1,6 +1,4 @@
-package source.leetcode.esay.normal;
-
-import org.junit.Test;
+package source.leetcode.esay.num;
 
 /**
  * 翻转数字
