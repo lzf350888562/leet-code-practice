@@ -7,7 +7,7 @@ import  static source.leetcode.esay.linked.MergeTwoLists.ListNode;
 /**
  * 19
  * 给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。
- * 3种方法 计算链表长度(需要遍历两次)  栈  快慢指针
+ * 3种方法 计算链表长度(需要遍历两次)  栈  快慢指针(最快)
  * @author lzf
  * @date 2021/10/6
  */
