@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
  * @date 2021/10/6
  */
 public class GenerateParenthesis {
+    //存储已经递归过的返回值  空间换时间
     List[] cache = new ArrayList[100];
     public List<String> generateParenthesis(int n) {
         List<String> res = new ArrayList<>();
@@ -24,6 +25,7 @@ public class GenerateParenthesis {
     }
     
     private List<StringBuilder> doGenerate(int n) {
+        //如果缓存中存在 doGenerate(n)的结果 则返回
         if (cache[n] != null) {
             return cache[n];
         }
@@ -39,6 +41,7 @@ public class GenerateParenthesis {
                 }
             }
         }
+        //记录当前返回值到缓存
         cache[n] = sbs;
         return sbs;
     }
