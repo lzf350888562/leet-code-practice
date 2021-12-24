@@ -26,7 +26,7 @@ public class ThreeSum {
                     k--;
                 }
                 if(nums[i]+nums[j]+nums[k] == 0){
-                    res.add(List.of(nums[i],nums[j],nums[k]));
+                    res.add(Arrays.asList(nums[i],nums[j],nums[k]));
                 }
             }
         }
