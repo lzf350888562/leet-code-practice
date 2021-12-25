@@ -8,7 +8,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * 使用lock conditon
  * 顺序交替输出ABC 注意解决倒数第二个线程未结束问题
  */
-public class AlternatePrint {
+public class AlternatePrint1 {
     private static volatile int I = 0;  // 不需要保证原子性，因为run有if判断  保证线程可见即可
     private static Lock lock = new ReentrantLock();
     private static Condition condition1 = lock.newCondition();

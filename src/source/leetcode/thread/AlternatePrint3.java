@@ -19,12 +19,15 @@ public class AlternatePrint3 {
         @Override
         public void run() {
             for (int i = 0; i < 10; ) {
-                System.out.println("----------线程"+Thread.currentThread().getName()+" 空转一次");
+//                System.out.println("----------线程"+Thread.currentThread().getName()+" 空转一次");
                 if (state % 3 == type) {
                     System.out.println(name.charAt(type));
                     state++;
                     i++;
                 }
+//                else{
+//                    Thread.yield();
+//                }
             }
         }
 
