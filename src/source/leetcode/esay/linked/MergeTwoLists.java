@@ -6,7 +6,6 @@ package source.leetcode.esay.linked;
  * @Date 2021/3/22
  */
 public class MergeTwoLists {
-
 	public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
 		ListNode listNode=new ListNode();
 		ListNode headd=listNode;
