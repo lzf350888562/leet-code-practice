@@ -1,6 +1,5 @@
-package source.leetcode.difficult.string;
+package source.leetcode.hard.string;
 
-import java.util.BitSet;
 import java.util.LinkedList;
 
 /**

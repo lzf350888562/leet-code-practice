@@ -1,4 +1,4 @@
-package source.leetcode.difficult.linked;
+package source.leetcode.hard.linked;
 
 import source.leetcode.esay.linked.MergeTwoLists;
 import source.leetcode.esay.linked.MergeTwoLists.ListNode;
