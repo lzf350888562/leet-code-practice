@@ -1,7 +1,7 @@
 package source.leetcode.esay.string;
 
 /**
- * 最长公共前缀
+ * 14. 最长公共前缀
  * @author Jinx
  * @Date 2021/3/22
  */

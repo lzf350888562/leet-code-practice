@@ -1,6 +1,7 @@
 package source.leetcode.esay.string;
 
 /**
+ * 28.实现 strStr() 函数。
  * 第一次出现的子串的位置
  * @author Jinx
  * @Date 2021/3/23

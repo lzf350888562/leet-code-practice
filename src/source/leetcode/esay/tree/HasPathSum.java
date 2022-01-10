@@ -1,7 +1,7 @@
 package source.leetcode.esay.tree;
 
 /**
- * @author Jinx
+ * 112. 路径总和
  * @Date 2021/3/27
  */
 public class HasPathSum {

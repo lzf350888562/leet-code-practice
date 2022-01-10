@@ -1,9 +1,8 @@
 package source.leetcode.esay.tree;
 
 /**
+ * 101. 对称二叉树
  * 给定一个二叉树，检查它是否是镜像对称的。
- *
- * @author Jinx
  * @Date 2021/3/27
  */
 public class IsSymmetric {

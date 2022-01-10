@@ -15,9 +15,9 @@ public class Rob {
 		Map<Integer,Integer> B = new HashMap<>();
 
 		int f(int[] nums,int x){
-
 			if (x>=nums.length)  return 0;
-			if(A.containsKey(x)) return B.get(x);A.put(x,true);
+			if(A.containsKey(x)) return B.get(x);
+			A.put(x,true);
 			B.put(x,Math.max(f(nums,x+2)+nums[x],f(nums,x+1)));
 			return B.get(x);
 		}

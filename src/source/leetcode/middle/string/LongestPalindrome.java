@@ -1,7 +1,7 @@
 package source.leetcode.middle.string;
 
 /**
- * 给你一个字符串 s，找到 s 中最长的回文子串。
+ * 5. 最长回文子串
  * @author lzf
  * @date 2021/10/5
  */

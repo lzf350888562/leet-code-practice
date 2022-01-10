@@ -1,8 +1,8 @@
 package source.leetcode.esay.linked;
 
 /**
+ * 141. 环形链表
  * 给定一个链表，判断链表中是否有环。
- *
  * @author lzf
  * @Date 2021/8/21
  */

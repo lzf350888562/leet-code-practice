@@ -3,6 +3,7 @@ package source.leetcode.esay.string;
 import java.lang.ref.SoftReference;
 
 /**
+ * 67. 二进制求和
  * 给你两个二进制字符串，返回它们的和（用二进制表示）。
  * 输入为 非空 字符串且只包含数字 1 和 0。
  * @author Jinx
@@ -10,12 +11,7 @@ import java.lang.ref.SoftReference;
  */
 public class AddBinary {
 	public static String addBinary(String a, String b) {
-//		Long a1 = Long.valueOf(a, 2);
-//		Long b1 = Long.valueOf(b, 2);
-//		Long sum = a1+b1;
-//		String string = Long.toBinaryString(sum);
-//		return string;
-
+		//进位标志
 		boolean flag = false;
 		int i=a.length()-1;
 		int j=b.length()-1;

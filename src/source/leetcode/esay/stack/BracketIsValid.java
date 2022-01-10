@@ -5,7 +5,7 @@ import java.util.Stack;
 import java.util.function.Consumer;
 
 /**
- * 括号是否有效
+ * 20. 有效的括号
  * @author Jinx
  * @Date 2021/3/22
  */
