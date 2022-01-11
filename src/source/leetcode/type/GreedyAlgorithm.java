@@ -1,5 +1,7 @@
 package source.leetcode.type;
 
+import source.leetcode.middle.array.Permute;
+
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -142,7 +144,7 @@ public class GreedyAlgorithm {
         int count = 0;
         for (int i = 0; i < flowerbed.length; i++) {
             //至少需要3空地  或者左头+右空地 或者右尾+左空地
-            if(flowerbed[i] == 0 && (i == 0 || flowerbed[i - 1] == 0) && (i + 1 == flowerbed.length || flowerbed[i + 1] == 0) ){
+            if (flowerbed[i] == 0 && (i == 0 || flowerbed[i - 1] == 0) && (i + 1 == flowerbed.length || flowerbed[i + 1] == 0)) {
                 flowerbed[i] = 1;
                 count++;
             }
@@ -154,16 +156,17 @@ public class GreedyAlgorithm {
      * 452. 用最少数量的箭引爆气球
      * 在二维空间中有许多球形的气球。对于每个气球，提供的输入是水平方向上，气球直径的开始和结束坐标。
      * 由于它是水平的，所以纵坐标并不重要，因此只要知道开始和结束的横坐标就足够了。开始坐标总是小于结束坐标。
-     *
+     * <p>
      * 一支弓箭可以沿着 x 轴从不同点完全垂直地射出。
      * 在坐标 x 处射出一支箭，若有一个气球的直径的开始和结束坐标为 xstart，xend， 且满足xstart≤ x ≤ xend，则该气球会被引爆。
      * 可以射出的弓箭的数量没有限制。 弓箭一旦被射出之后，可以无限地前进。我们想找到使得所有气球全部被引爆，所需的弓箭的最小数量。
-     *  类似435
+     * 类似435
+     *
      * @param points points [i] = [xstart,xend]
      * @return 引爆所有气球所必须射出的最小弓箭数。
      */
     public int findMinArrowShots(int[][] points) {
-        if(points.length == 0 ){    //为空的情况排除 接下来最少需要一支箭 total = 1
+        if (points.length == 0) {    //为空的情况排除 接下来最少需要一支箭 total = 1
             return 0;
         }
         int n = points.length;
@@ -173,7 +176,7 @@ public class GreedyAlgorithm {
         boolean flag = false;
         for (int i = 1; i < n; i++) {
             if (points[i][0] <= prev) {  //加=  [1,2][2,3] 也可以用一支箭
-                if(!flag){
+                if (!flag) {
                     flag = true;
                 }
             } else {
@@ -185,9 +188,69 @@ public class GreedyAlgorithm {
         return total;
     }
 
+    /**
+     * 406. 根据身高重建队列
+     * people[i] = [hi, ki] 表示第 i 个人的身高为 hi ，前面 正好 有 ki 个身高大于或等于 hi 的人。
+     * 需要重新按k要求构造数组
+     * 输入：people = [[7,0],[4,4],[7,1],[5,0],[6,1],[5,2]]
+     * 输出：[[5,0],[7,0],[5,2],[6,1],[4,4],[7,1]]
+     */
+    public int[][] reconstructQueue(int[][] people) {
+        //先按身高降序, 再按k升序  然后逐个插入
+        Arrays.sort(people, (o1, o2) -> o2[0] == o1[0] ? o1[1] - o2[1] : o2[0] - o1[0]);
+        // [[7,0],[7,1],[6,1],[5,0],[5,2],[4,4]]
+        int[][] tmp = new int[people.length][2];
+        for (int i = 0; i < people.length; i++) {
+            if (people[i][1] > i) {  //关键为这里的大于号 表示前面身高大于等于自己的人没有超过k , 直接插入
+                tmp[i] = people[i];
+            } else {        // 如果前面大于等于自己身高的人超过了k, 则插入到i位置保证前面只有k个人身高大于等于自己
+                for (int j = i; j > people[i][1]; j--) {
+                    tmp[j] = tmp[j - 1];
+                }
+                tmp[people[i][1]] = people[i];
+            }
+        }
+        return tmp;
+    }
+
+    /**
+     * 665. 非递减数列
+     * 给你一个长度为 n 的整数数组，请你判断在 最多改变 1 个元素的情况下，该数组能否变成一个非递减数列。
+     *
+     * @param nums
+     * @return
+     */
+    public boolean checkPossibility(int[] nums) {
+        int index = 0;
+        int i = 1;
+        for (; i < nums.length; i++) {
+            //记录第一次出现非递减情况
+            if (nums[i - 1] > nums[i]) {
+                index = i-1;
+                break;
+            }
+        }
+        //如果再出现非递减直接false
+        for (i++; i < nums.length; i++) {
+            if (nums[i - 1] > nums[i]) {
+                return false;
+            }
+        }
+        //index为0 表示修改最前面或最后面那个即可 总能成功
+        if (index != 0) {
+            if(nums[index - 1] > nums[index + 1]){
+                if(index != nums.length-2 && nums[index] > nums[index + 2]){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
 
     public static void main(String[] args) {
 //        System.out.println(new GreedyAlgorithm().candy(new int[]{1, 3, 4, 5, 2}));
-        System.out.println(new GreedyAlgorithm().canPlaceFlowers(new int[]{1, 0, 0, 0, 1},2));
+//        System.out.println(new GreedyAlgorithm().canPlaceFlowers(new int[]{1, 0, 0, 0, 1}, 2));
+        System.out.println(new GreedyAlgorithm().checkPossibility(new int[]{3,4,2,3}));
     }
 }
