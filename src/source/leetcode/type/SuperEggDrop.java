@@ -11,7 +11,16 @@ package source.leetcode.type;
  * 这里给你了鸡蛋个数的限制 K ，不能使用二分
  */
 public class SuperEggDrop {
+    /**
+     * 动态规划
+     * 状态: 当前拥有的鸡蛋数K和需要测试的楼层数N
+     * 选择: 去选择哪层楼扔鸡蛋
+     */
     public int superEggDrop(int k, int n) {
+        int[][] dp = new int[k+1][n+1];
+        for (int i = n; i > 0; i--) {
+
+        }
         return 0;
     }
 }

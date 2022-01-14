@@ -1,5 +1,8 @@
 package source.leetcode.esay.tree;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * @author Jinx
  * @Date 2021/3/27
@@ -20,5 +23,14 @@ public class TreeNode {
 		this.val = val;
 		this.left = left;
 		this.right = right;
+	}
+
+	@Override
+	public String toString() {
+		return "TreeNode{" +
+				"val=" + val +
+				", left=" + left +
+				", right=" + right +
+				'}';
 	}
 }
