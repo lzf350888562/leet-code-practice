@@ -1,4 +1,6 @@
-package source.leetcode.type;
+package source.leetcode.type.dp;
+
+import java.util.Arrays;
 
 /**
  * 887. 鸡蛋掉落
@@ -17,10 +19,26 @@ public class SuperEggDrop {
      * 选择: 去选择哪层楼扔鸡蛋
      */
     public int superEggDrop(int k, int n) {
-        int[][] dp = new int[k+1][n+1];
-        for (int i = n; i > 0; i--) {
-
+        int[][] forget = new int[k+1][n+1];
+        for (int i = 0; i < forget.length; i++) {
+            Arrays.fill(forget[i],Integer.MAX_VALUE);
         }
-        return 0;
+        return dp(k,n,forget);
+    }
+    private int dp(int k, int n,int[][] forget){
+        //base case
+        if( k == 1) return n; //当鸡蛋数K为 1 时，只能线性扫描所有楼层
+        if( n == 0) return 0;//当楼层数N等于 0 时，不需要扔
+        if(forget[k][n] != Integer.MIN_VALUE){ //避免重复执行子任务
+            return forget[k][n];
+        }
+        int res = Integer.MAX_VALUE;
+        for (int i = 1; i < n + 1; i++) {
+            res = Math.min(res,Math.max(dp(k,n-i,forget),dp(k-1,i-1,forget))+1);
+        }
+        if(res != Integer.MAX_VALUE){   //备忘
+            forget[k][n] = res;
+        }
+        return res;
     }
 }

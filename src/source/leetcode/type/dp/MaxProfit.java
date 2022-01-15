@@ -1,4 +1,4 @@
-package source.leetcode.type;
+package source.leetcode.type.dp;
 
 /**
  * 买卖股票的最佳时机

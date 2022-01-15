@@ -19,26 +19,54 @@ public class BuildTreeByTwoList {
         for (int i = 0; i < inorder.length; i++) {
             inMap.put(inorder[i], i);
         }
-        return doBuild(preorder, 0, preorder.length - 1, 0, inMap);
+        //每轮递归只需要知道当前 前序的根节点 和中序的区间即可
+        return doBuild1(preorder, 0, preorder.length - 1, 0, inMap);
     }
-    // start 前序起点 end 前序终点 rootIndex 前序根节点下标
-    private TreeNode doBuild(int[] preorder, int start, int end, int rootIndexInPre, Map<Integer, Integer> inMap) {
+    // start 中序起点 end 中序终点 rootIndex 前序根节点下标
+    private TreeNode doBuild1(int[] preorder, int start, int end, int rootIndexInPre, Map<Integer, Integer> inMap) {
         if (start > end) {
             return null;
         }
         int rootVal = preorder[rootIndexInPre];     // 该轮递归的根节点 即当前前序遍历第一个
-        int rootIndexInMid = inMap.get(rootVal);    // 当前根节点在当前中序遍历中的位置
-        int leftLen = rootIndexInMid - start;       // 下一轮询右子树前序距离起点偏移量
+        int rootIndexInMid = inMap.get(rootVal);    //  当前根节点在当前中序遍历中的位置
+        int leftLen = rootIndexInMid - start + 1;       // 下一轮的右子树前序根节点距离当前起点偏移量
         TreeNode root = new TreeNode(rootVal);
-        root.left = doBuild(preorder, start, rootIndexInMid - 1, rootIndexInPre + 1, inMap);
-        root.right = doBuild(preorder, rootIndexInMid + 1, end, rootIndexInPre + 1 + leftLen, inMap);
+        root.left = doBuild1(preorder, start, rootIndexInMid - 1, rootIndexInPre + 1, inMap);
+        root.right = doBuild1(preorder, rootIndexInMid + 1, end, rootIndexInPre + leftLen, inMap);
         return root;
     }
 
+    /**
+     * 106. 从中序与后序遍历序列构造二叉树
+     */
+    public TreeNode buildTree2(int[] inorder, int[] postorder) {
+        return doBuild2(postorder, 0, postorder.length - 1, inorder,0,postorder.length - 1);
+    }
 
+    private TreeNode doBuild2(int[] postorder, int postStart, int postEnd, int[] inorder, int inStart, int inEnd) {
+        if( inStart > inEnd) {
+            return null;
+        }
+        TreeNode node = new TreeNode(postorder[postEnd]);
+        int rootin = inStart;
+        while (rootin <= inEnd && inorder[rootin] != postorder[postEnd]) rootin++;
+        int left = rootin - inStart;
+        node.left = doBuild2(postorder, postStart, postStart + left - 1, inorder, inStart, rootin - 1);
+        node.right = doBuild2(postorder,postStart + left, postEnd - 1,inorder,rootin + 1, inEnd);
+        return node;
+    }
+
+
+    /**
+     * 889. 根据前序和后序遍历构造二叉树
+     */
+    public TreeNode constructFromPrePost(int[] preorder, int[] postorder) {
+        return null;
+    }
 
     public static void main(String[] args) {
-        TreeNode treeNode = new BuildTreeByTwoList().buildTree1(new int[]{4, 9, 20, 15, 7}, new int[]{9, 4, 15, 20, 7});
+//        TreeNode treeNode = new BuildTreeByTwoList().buildTree1(new int[]{4, 9, 20, 15, 7}, new int[]{9, 4, 15, 20, 7});
+        TreeNode treeNode = new BuildTreeByTwoList().buildTree2(new int[]{9, 3, 15, 20, 7}, new int[]{9, 15, 7, 20, 3});
         System.out.println(treeNode);
     }
 }
