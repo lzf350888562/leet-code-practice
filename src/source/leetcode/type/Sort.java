@@ -19,7 +19,7 @@ public class Sort {
             while(first < last && nums[last] >= key) {
                 --last;
             }
-            nums[first] = nums[last];
+            nums[first] = nums[last];   //中间值已经通过key保存, 这里可直接替换掉
             while (first < last && nums[first] <= key) {
                 ++first;
             }
