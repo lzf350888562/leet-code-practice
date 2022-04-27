@@ -1,7 +1,12 @@
 package source.leetcode.type;
 
+import sun.security.provider.Sun;
+
 /**
- * 细节最多的 二分法
+ * 细节最多的 二分法 适用于以下模板:
+ * for (int i = 0; i < n; i++)
+ *     if (isOK(i))
+ *         return answer;
  * 69. Sqrt(x)
  * 34. 在排序数组中查找元素的第一个和最后一个位置 重要
  * 81. 搜索旋转排序数组 II
@@ -218,5 +223,72 @@ public class BinarySearch {
     public static void main(String[] args) {
 //        System.out.println(new Binary().search(new int[]{1, 0, 1, 1, 1}, 0));
         System.out.println(new BinarySearch().findMedianSortedArrays(new int[]{1, 2}, new int[]{3,4}));
+    }
+
+    /**
+     * 875. 爱吃香蕉的珂珂
+     * 每小时最多吃一堆香蕉，如果吃不下的话留到下一小时再吃；如果吃完了这一堆还有胃口，也只会等到下一小时才会吃下一堆。
+     * 确定 Koko 吃香蕉的最小速度（根/小时）
+     * 可从速度1开始从小到大遍历到最大值(最大堆香蕉个数), 如果遍历到可吃完即最小速度
+     * 可通过二分改善
+     */
+    public int minEatingSpeed(int[] piles, int h) {
+        int max = 0;
+        for (int n : piles) max = Math.max(n, max);
+        int left = 1,right = max;
+        while (left < right){
+            int speed = left + (right - left)/2;
+            int time = 0;
+            for (int pile:piles){
+                // 吃完这一堆需要的时间
+                int timeN = (pile / speed) + ((pile % speed == 0) ? 0 : 1);
+                time += timeN;
+            }
+            if(time <= h){   //能吃完, 继续提升速度, 防止漏掉这种情况不能减一
+                right = speed;
+            }else{          //不能吃完, 放慢速度
+                left = speed +1 ;
+            }
+        }
+        return right;//right也可以 left==right时结束
+    }
+
+    /**
+     *第 i个包裹的重量为weights[i]。每一天按给出重量（weights）的顺序往传送带上装载包裹。我们装载的重量不会超过船的最大运载重量。
+     * 返回能在 days 天内将传送带上的所有包裹送达的船的最低运载能力。
+     * 与吃香蕉题类似, 但货物不可拆分, 最大值最小值也不同
+     */
+    public int shipWithinDays(int[] weights, int days) {
+        int maxWeight = 0;
+        int sumWeight = 0;
+        for (int weight : weights) {
+            //最小边界为最大货物重量
+            maxWeight = Math.max(weight,maxWeight);
+            //最大边界为所有货物重量的和
+            sumWeight += weight;
+        }
+        int left = maxWeight,right = sumWeight;
+        while (left < right){
+            int capacity = left + (right - left) / 2;
+            boolean isOk = false;
+            int i = 0;
+            for (int day = 0; day < days; day++) {
+                int maxCap = capacity;
+                while ((maxCap -= weights[i]) >= 0) {
+                    i++;
+                    if (i == weights.length){
+                        isOk = true;
+                        break;
+                    }
+                }
+                if(isOk == true) break;     // i满了需要跳出该循环
+            }
+            if(isOk){   //能装完, 继续减少容量, 防止漏掉这种情况不能减一
+                right = capacity;
+            }else{          //不能装完, 增加容量
+                left = capacity +1 ;
+            }
+        }
+        return right;
     }
 }
