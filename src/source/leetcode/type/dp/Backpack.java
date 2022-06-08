@@ -93,7 +93,7 @@ public class Backpack {
         dp[0] = true;     //dp[x][0]表示背包没空间, 相当于满
         //状态转移
         for (int i = 0; i < n; i++) {
-            for (int j = sum; j >= W; j++) {  //需要反向遍历,以免之前的结果影响其他的结果
+            for (int j = sum; j >= W; j--) {  //需要反向遍历,以免之前的结果影响其他的结果
                 //物品数组从0开始 所以要减一
                 if (j - nums[i] >= 0) {
                     dp[j] = dp[j] || dp[j - nums[i]];

@@ -34,6 +34,7 @@ public class SuperEggDrop {
         }
         int res = Integer.MAX_VALUE;
         for (int i = 1; i < n + 1; i++) {
+                                            // 没碎               碎了
             res = Math.min(res,Math.max(dp(k,n-i,forget),dp(k-1,i-1,forget))+1);
         }
         if(res != Integer.MAX_VALUE){   //备忘
