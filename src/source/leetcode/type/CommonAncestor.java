@@ -22,7 +22,7 @@ public class CommonAncestor {
         if(root == null){
             return null;
         }
-        if (root.val == p.val || root.val == q.val) { //一父一子的情况
+        if (root.val == p.val || root.val == q.val) { // 存在
             return root;
         }
         TreeNode left = lowestCommonAncestor1(root.left, p, q);
@@ -49,7 +49,7 @@ public class CommonAncestor {
         if(root == null){
             return null;
         }
-        if (set.contains(root.val)) { //一父多子的情况
+        if (set.contains(root.val)) {
             return root;
         }
         TreeNode left = lowestCommonAncestor2(root.left, nodes);

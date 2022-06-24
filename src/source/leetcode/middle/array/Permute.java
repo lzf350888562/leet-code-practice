@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * no.46  全排列
+ * 优化方向为先排序
  */
 public class Permute {
     public List<List<Integer>> permute(int[] nums) {

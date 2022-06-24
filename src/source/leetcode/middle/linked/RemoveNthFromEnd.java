@@ -28,6 +28,31 @@ public class RemoveNthFromEnd {
         stack.peek().next = stack.peek().next.next;
         return head;
     }
+
+    /**
+     * 快慢指针
+     */
+    public ListNode removeNthFromEnd1(ListNode head, int n) {
+        if(head == null || head.next == null) return null;
+        ListNode fast = head, slow = head;
+        // try{
+        for(int i = 0; i < n; i++){
+            fast = fast.next;
+        }
+        // }catch(Exception e){
+        // return head.next;
+        // }
+        if(fast == null){
+            return head.next;
+        }
+
+        while(fast.next!=null){
+            slow = slow.next;
+            fast = fast.next;
+        }
+        slow.next = slow.next.next;
+        return head;
+    }
     
     public static void main(String[] args) {
         ListNode listNode = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5, null)))));
@@ -37,4 +62,6 @@ public class RemoveNthFromEnd {
             res=res.next;
         }
     }
+
+
 }

@@ -5,6 +5,7 @@ import java.util.Arrays;
 /**
  * 204. 计数质数(素数)
  * 统计所有小于非负整数 n 的质数的数量。
+ * 小于 10 的质数一共有 4 个, 它们是 2, 3, 5, 7 。
  */
 public class CountPrimes {
     public int countPrimes(int n) {

@@ -59,7 +59,7 @@ public class NotRecursiveTraceTree {
     }
 
     /**
-     * 145
+     * 145 后续
      * 区别于前序 需要另外一个数组倒序记录
      */
     public List<Integer> postorderTraversal(TreeNode root) {

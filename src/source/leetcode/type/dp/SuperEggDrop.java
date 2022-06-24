@@ -8,7 +8,7 @@ import java.util.Arrays;
  * 已知存在楼层 f ，满足0 <= f <= n ，任何从 高于 f 的楼层落下的鸡蛋都会碎，从 f 楼层或比它低的楼层落下的鸡蛋都不会破。
  * 每次操作，你可以取一枚没有碎的鸡蛋并把它从任一楼层 x 扔下（满足1 <= x <= n）。如果鸡蛋碎了，你就不能再次使用它。如果某枚鸡蛋扔下后没有摔碎，则可以在之后的操作中 重复使用 这枚鸡蛋。
  * 请你计算并返回要确定 f 确切的值 的 最小操作次数 是多少？
- *
+ * <p>
  * 类似问题有扔杯子,扔碗等
  * 这里给你了鸡蛋个数的限制 K ，不能使用二分
  */
@@ -19,27 +19,48 @@ public class SuperEggDrop {
      * 选择: 去选择哪层楼扔鸡蛋
      */
     public int superEggDrop(int k, int n) {
-        int[][] forget = new int[k+1][n+1];
+        int[][] forget = new int[k + 1][n + 1];
         for (int i = 0; i < forget.length; i++) {
-            Arrays.fill(forget[i],Integer.MAX_VALUE);
+            Arrays.fill(forget[i], Integer.MAX_VALUE);
         }
-        return dp(k,n,forget);
+        return dp(k, n, forget);
     }
-    private int dp(int k, int n,int[][] forget){
+
+    private int dp(int k, int n, int[][] forget) {
         //base case
-        if( k == 1) return n; //当鸡蛋数K为 1 时，只能线性扫描所有楼层
-        if( n == 0) return 0;//当楼层数N等于 0 时，不需要扔
-        if(forget[k][n] != Integer.MIN_VALUE){ //避免重复执行子任务
+        if (k == 1) return n; //当鸡蛋数K为 1 时，只能线性扫描所有楼层
+        if (n == 0) return 0;//当楼层数N等于 0 时，不需要扔
+        if (forget[k][n] != Integer.MAX_VALUE) { //避免重复执行子任务
             return forget[k][n];
         }
         int res = Integer.MAX_VALUE;
-        for (int i = 1; i < n + 1; i++) {
-                                            // 没碎               碎了
-            res = Math.min(res,Math.max(dp(k,n-i,forget),dp(k-1,i-1,forget))+1);
+        // 用二分 否则n太大时会栈溢出
+        int left = 1, right = n;
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            int notBroken = dp(k, n - mid, forget);
+            int broken = dp(k - 1, mid - 1, forget);
+            if(notBroken > broken){
+                left = mid + 1;
+                res = Math.min(res, notBroken+1);
+            }else{
+                right = mid - 1;
+                res = Math.min(res, broken + 1);
+            }
         }
-        if(res != Integer.MAX_VALUE){   //备忘
+//        for (int i = 1; i <= n ; i++) {
+//            res = Math.min(res, Math.max(
+//                    dp(k,n-i,forget),   // 没碎
+//                    dp(k-1,i-1,forget)    //碎了
+//                    )+1);
+//        }
+        if (res != Integer.MAX_VALUE) {   //备忘
             forget[k][n] = res;
         }
         return res;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new SuperEggDrop().superEggDrop(6, 10000));
     }
 }

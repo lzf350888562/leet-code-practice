@@ -28,7 +28,7 @@ public class TwoSum {
         return null;
     }
     //注意 :因为数组为非递减(递增)排列
-    //所以可以利用这个特性
+    //所以可以利用这个特性 双指针
     public int[] twoSum2(int[] numbers, int target) {
         for (int i = 0, j = numbers.length - 1; i < j;) {
             int sum = numbers[i] + numbers[j];

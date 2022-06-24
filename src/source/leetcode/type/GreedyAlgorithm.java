@@ -173,15 +173,10 @@ public class GreedyAlgorithm {
         //区间需要根据尾结点排序
         Arrays.sort(points, Comparator.comparingInt(o -> o[1]));
         int total = 1, prev = points[0][1];
-        boolean flag = false;
         for (int i = 1; i < n; i++) {
             if (points[i][0] <= prev) {  //加=  [1,2][2,3] 也可以用一支箭
-                if (!flag) {
-                    flag = true;
-                }
             } else {
                 prev = points[i][1];
-                flag = false;
                 ++total;
             }
         }

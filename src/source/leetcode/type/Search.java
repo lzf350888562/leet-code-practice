@@ -2,6 +2,7 @@ package source.leetcode.type;
 
 import source.leetcode.esay.tree.TreeNode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -73,7 +74,62 @@ public class Search {
      * 处理重复
      */
     public List<List<Integer>> permuteUnique(int[] nums) {
-        return null;
+        List<Integer> numsList = new ArrayList<>(nums.length);
+        List<List<Integer>> res = new ArrayList<>();
+        for (int num : nums) {
+            numsList.add(num);
+        }
+        // 利用no31下一个排列, 该方式可以去重, 但需要从头开始(有序)
+        numsList.sort(Integer::compareTo);
+        while (true){
+            res.add(new ArrayList<>(numsList)); // 底层复制一个数组, 不会影响原数组
+            boolean flag = true;
+            for (int i = 0; i < numsList.size() - 1; i++) {
+                if (numsList.get(i) < numsList.get(i+1)) {
+                    flag = false;
+                }
+            }
+            if(flag) break; // 如果是倒序, 说明已经排列完毕了
+            if (numsList.get(numsList.size()  - 2) < numsList.get(numsList.size()  - 1)) {
+                // 如果倒数两个是顺序, 翻转两个即可
+                swap(numsList, numsList.size() - 2, numsList.size() - 1);
+            } else {
+                // 从后往前依次找到第一个nums[i] < nums[i+1]
+                int i = numsList.size() - 3;
+                for (; i >= 0; i--) {
+                    if (numsList.get(i) < numsList.get(i+1)) {
+                        // 找到i后对i后面的元素升序排序
+                        for (int j = i + 1; j < numsList.size() - 1; j++) {
+                            int min = numsList.get(j), index = j;
+                            for (int k = j + 1; k < numsList.size(); k++) {
+                                if (numsList.get(k) < min) {
+                                    min = numsList.get(k);
+                                    index = k;
+                                }
+                            }
+                            if (index != j) {
+                                swap(numsList, index, j);
+                            }
+                        }
+                        // 然后将后面第一个大于nums[i]的元素(即大于nums[i]的最小元素)与nums[i]交换
+                        for (int j = i + 1; j < numsList.size(); j++) {
+                            if (numsList.get(j) > numsList.get(i)) {
+                                swap(numsList, j, i);
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        return res;
+    }
+
+    private void swap(List<Integer> nums, int i, int j){
+        int t = nums.get(i);
+        nums.set(i, nums.get(j));
+        nums.set(j, t);
     }
 
     /**

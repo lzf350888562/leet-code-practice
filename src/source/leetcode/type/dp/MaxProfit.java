@@ -123,7 +123,7 @@ public class MaxProfit {
             dp_i20 = Math.max(dp_i20, dp_i21 + price);      //dp[i][2][0] = max(dp[i-1][2][0], dp[i-1][2][1] + prices[i])
             dp_i21 = Math.max(dp_i21, dp_i10 - price);      //dp[i][2][1] = max(dp[i-1][2][1], dp[i-1][1][0] - prices[i])
             dp_i10 = Math.max(dp_i10, dp_i11 + price);      //dp[i][1][0] = max(dp[i-1][1][0], dp[i-1][1][1] + prices[i])
-            dp_i11 = Math.max(dp_i11, -price);              //dp[i][1][0] = max(dp[i-1][1][0], 0 - prices[i])
+            dp_i11 = Math.max(dp_i11, -price);              //dp[i][1][1 ] = max(dp[i-1][1][0], 0 - prices[i])
         }
         return dp_i20;
     }
@@ -145,10 +145,7 @@ public class MaxProfit {
         int[][][] dp = new int[n][k + 1][2];
         for (int i = 0; i < n; i++)
             for (int k_tmp = k; k_tmp >= 1; k_tmp--) {
-                if (i - 1 == -1 && k_tmp - 1 == -1) {
-                    dp[i][k_tmp][0] = Math.max(0,  Integer.MIN_VALUE + prices[i]);
-                    dp[i][k_tmp][1] = Math.max(Integer.MIN_VALUE, 0 - prices[i]);
-                } else if (i - 1 == -1 && k_tmp - 1 != -1){
+                if (i - 1 == -1 && k_tmp - 1 != -1){
                     dp[i][k_tmp][0] = Math.max(0,  Integer.MIN_VALUE + prices[i]);
                     dp[i][k_tmp][1] = Math.max(Integer.MIN_VALUE, 0 - prices[i]);
                 } else if(i - 1 != -1 && k_tmp - 1 == -1){

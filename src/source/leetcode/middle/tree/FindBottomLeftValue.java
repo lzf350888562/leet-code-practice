@@ -12,14 +12,14 @@ import java.util.Queue;
  */
 public class FindBottomLeftValue {
     /**
-     * 深度优先, 这跟求最长高度有什么区别
+     * 广度优先, 这跟求最长高度有什么区别
      */
     public int findBottomLeftValue(TreeNode root) {
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
         while(!queue.isEmpty()){
             root = queue.poll();
-//            找到第一个叶子节点就返回 正好满足条件
+            // 广度优先 从右遍历到左 , 最后root就是最后一层的的最后一个左边节点
             if (root.right != null) queue.offer(root.right);
             if (root.left != null) queue.offer(root.left);
         }
