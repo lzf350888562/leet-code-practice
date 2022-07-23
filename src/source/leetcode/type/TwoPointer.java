@@ -89,7 +89,47 @@ public class TwoPointer {
      * 滑动窗口关键需要知道何时通过移动右侧指针扩大窗口, 何时通过左侧指针缩小窗口
      */
     public String minWindow(String s, String t) {
-        return "";
+        if (s == null || t.length() == 0 || t == null || t.length() == 0) {
+            return "";
+        }
+        // 将需要的字符个数记录下(t)
+        int[] window = new int[128];
+        for (int i = 0; i < t.length(); i++) {
+            window[t.charAt(i)] += 1;
+        }
+
+        int right = 0, left = 0, count = t.length(), size = Integer.MAX_VALUE, start = 0;
+        // 扩大窗口,先找到满足含有t s的字串
+        while (right < s.length()) {
+            // window里>=0都是需要的count,<0的都是非必要字符
+            char c = s.charAt(right);
+            // 判断窗口是否需要当前元素,需要的话count-1
+            if (window[c] > 0) {
+                count--;
+            }
+            window[c] -= 1; // 更新想要得到的窗口
+            // 当count=0 说明需要的字符都被找到了,左指针右移 缩小窗口,直到刚好满足count==0
+            if (count == 0) {
+                while (window[s.charAt(left)] < 0) {
+                    window[s.charAt(left)]++;
+                    left++;
+                }
+                // 确定好新的窗口 在每个新的窗口中 找最小的窗口
+                if (right - left < size) {
+                    // size指向下标为确定好窗口的最后一个字符
+                    size = right - left;
+                    start = left;
+                }
+                // 开始下一个窗口的寻找 这时候left指向的s字串 是t的第一个字符
+                // 我们要看剩下的字串中有没有满足的, 首先让当前指向的字符不算,然后指针右移
+                window[s.charAt(left)]++;
+                left++;
+                count++;
+            }
+            right++; // 右指针不断右移,窗口不断扩大
+        }
+
+        return size == Integer.MAX_VALUE ? "" : s.substring(start, start + size + 1);
     }
 
     /**
